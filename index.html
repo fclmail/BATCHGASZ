@@ -381,6 +381,13 @@ function log(msg) {
   const div = document.getElementById("log");  
   div.innerHTML = `[${new Date().toLocaleTimeString()}] ${msg}<br>` + div.innerHTML;  
 }  
+// 👇 ADD THIS BLOCK RIGHT HERE
+window.addEventListener("load", async () => {
+  if (window.ethereum && window.ethereum.selectedAddress) {
+    // Reconnect and resume scan if wallet is already connected
+    await connectWallet();
+  }
+});	
 </script>  
 </body>  
 </html>
