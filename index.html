@@ -383,11 +383,18 @@ function log(msg) {
 }  
 // 👇 ADD THIS BLOCK RIGHT HERE
 window.addEventListener("load", async () => {
-  if (window.ethereum && window.ethereum.selectedAddress) {
-    // Reconnect and resume scan if wallet is already connected
-    await connectWallet();
+  if (window.ethereum) {
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    if (accounts.length > 0) {
+      log("🔄 Reconnected wallet: " + accounts[0]);
+      await connectWallet();
+    } else {
+      log("⏳ Wallet not yet connected. Click 'Connect Wallet'.");
+    }
+  } else {
+    log("❌ MetaMask not found.");
   }
-});	
+});
 </script>  
 </body>  
 </html>
